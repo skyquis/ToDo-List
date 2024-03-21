@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using ToDo_List.Data;
+
 namespace ToDo_List
 {
 	public class Program
@@ -9,6 +12,9 @@ namespace ToDo_List
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
 
+			// Add EF Core DI
+			builder.Services.AddDbContext<ToDoContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ToDoContext")));
+			
 			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
