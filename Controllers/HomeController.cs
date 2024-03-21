@@ -17,7 +17,7 @@ namespace ToDo_List.Controllers
 			ViewBag.Filters = filters;
 			ViewBag.Categories = context.Categories.ToList();
 			ViewBag.Statuses = context.Statuses.ToList();
-			ViewBag.DueFilters = Filters.DueFilterValues();
+			ViewBag.DueFilters = Filters.DueFilterValues;
 
 			IQueryable<ToDo> query = context.ToDos
 				.Include(t => t.Category).Include(t => t.Status);
@@ -27,7 +27,7 @@ namespace ToDo_List.Controllers
 			}
 			if (filters.HasStatus)
 			{
-				query = query.Where(t => t.StatusId == filters.StatusId)
+				query = query.Where(t => t.StatusId == filters.StatusId);
 			}
 			if (filters.HasDue)
 			{
@@ -79,7 +79,7 @@ namespace ToDo_List.Controllers
 		[HttpPost]
 		public IActionResult MarkComplete([FromRoute]string id, ToDo selected)
 		{
-			selected = context.ToDos.Find(selected.Id);
+			selected = context.ToDos.Find(selected.Id)!;
 			if (selected != null)
 			{
 				selected.StatusId = "closed";
