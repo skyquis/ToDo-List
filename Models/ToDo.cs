@@ -10,9 +10,11 @@ namespace ToDo_List.Models
 		public int Id { get; set; }
 
 		[Required(ErrorMessage = "Please enter a description.")]
+		[StringLength(40, ErrorMessage = "Description must be 40 characters or less")]
 		public string Description { get; set; } = string.Empty;
 
 		[Required(ErrorMessage = "Please enter a due date.")]
+		[Range(typeof(DateTime), "1/1/2000 00:00 AM", "12/31/2050 11:59 PM", ErrorMessage = "Date entered must be between 1/1/2000 and 12/31/2050.")]
 		public DateTime? DueDate { get; set; }
 
 		[Required(ErrorMessage = "Please select a category.")]
