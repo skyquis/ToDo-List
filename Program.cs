@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using ToDo_List.Data;
+using ToDo_List.Models;
 
 namespace ToDo_List
 {
@@ -11,6 +13,9 @@ namespace ToDo_List
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
+
+			// Configuring DI
+			builder.Services.AddTransient<IToDo, ToDo>();
 
 			// Add EF Core DI
 			builder.Services.AddDbContext<ToDoContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ToDoContext")));
