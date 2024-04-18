@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.VisualBasic;
 
 namespace ToDo_List.Models
@@ -30,10 +31,17 @@ namespace ToDo_List.Models
         public bool Overdue =>
             StatusId == "open" && DueDate < DateTime.Today;
 
-        public Cart(IHttpContextAccessor ctx)
+        private ISession session {  get; set; }
+        private IRequestCookieCollection requestCookies {  get; set; }
+        private IResponseCookies responseCookies { get; set; }
+        
+        public ToDo(IHttpContextAccessor ctx)
         {
             session = ctx.HttpContext!.Session;
             requestCookies = ctx.HttpContext!.Request.Cookies;
             responseCookies = ctx.HttpContext!.Response.Cookies;        }
         }
+
+        public void Load(IRepository<ToDo> data)
+        { }
 }
